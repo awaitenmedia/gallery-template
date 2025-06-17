@@ -11,7 +11,7 @@ import sharp from 'sharp';
 
 // Resolve paths relative to repo root ---------------------------------------
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const repoRoot  = path.resolve(__dirname, '../../..');      // up to repo root
+const repoRoot  = path.resolve(__dirname, '../..');
 const imagesDir = path.join(repoRoot, 'images');
 const template  = path.join(repoRoot, 'template.html');
 const output    = path.join(repoRoot, 'index.html');
