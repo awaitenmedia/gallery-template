@@ -14,27 +14,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣  Check out your repo
       - uses: actions/checkout@v4
 
-      # 2️⃣  Set up Node
       - uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # 3️⃣  Build index.html from template + images
-      - name: Build HTML
+      - name: Compress originals
+        run: npx imagemin images/* --plugin=mozjpeg --out-dir=images
+
+      - name: Build HTML & thumbnails
         run: |
-          npm install --no-save image-size
+          npm install --no-save image-size sharp
           node .github/scripts/generate.js
 
-      # 4️⃣  Gather all site files into ./public
       - name: Prepare publish directory
         run: |
           mkdir -p public
           rsync -av --exclude='public' --exclude='.git*' --exclude='node_modules' ./ public
 
-      # 5️⃣  Upload the site artifact
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
