@@ -24,7 +24,7 @@ jobs:
         run: |
           npm install --no-save imagemin-cli imagemin-mozjpeg
           npx imagemin-cli "images/*.{jpg,jpeg}" \
-            --plugin=imagemin-mozjpeg \
+            --plugin=mozjpeg \
             --out-dir=images
         
       - name: Build HTML & thumbnails
