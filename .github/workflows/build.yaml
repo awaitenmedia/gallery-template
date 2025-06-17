@@ -21,8 +21,12 @@ jobs:
           node-version: 20
 
       - name: Compress originals
-        run: npx imagemin images/* --plugin=mozjpeg --out-dir=images
-
+        run: |
+          npm install --no-save imagemin-cli imagemin-mozjpeg
+          npx imagemin-cli "images/*.{jpg,jpeg}" \
+            --plugin=imagemin-mozjpeg \
+            --out-dir=images
+        
       - name: Build HTML & thumbnails
         run: |
           npm install --no-save image-size sharp
