@@ -1,20 +1,45 @@
 name: Deploy gallery
 
-on: push
+on:
+  push:
+    branches: [ main ]   # adjust if your default branch is different
+
+permissions:
+  contents: read          # needed for checkout
+  pages: write            # to deploy
+  id-token: write         # to authenticate the deploy
+
 jobs:
   pages:
     runs-on: ubuntu-latest
+
     steps:
+      # 1️⃣  Check out your repo
       - uses: actions/checkout@v4
+
+      # 2️⃣  Set up Node
       - uses: actions/setup-node@v4
-        with: { node-version: 20 }
-      - run: |
-          npm install image-size
-          node .github/scripts/generate.js      # build index.html
-      - name: Copy to public
+        with:
+          node-version: 20
+
+      # 3️⃣  Build index.html from template + images
+      - name: Build HTML
         run: |
-          mkdir public
-          cp -R * public
-      - uses: actions/upload-pages-artifact@v3
-        with: { path: public }
-      - uses: actions/deploy-pages@v4      # publishes to Pages :contentReference[oaicite:1]{index=1}
+          npm install --no-save image-size
+          node .github/scripts/generate.js
+
+      # 4️⃣  Gather all site files into ./public
+      - name: Prepare publish directory
+        run: |
+          mkdir -p public
+          rsync -av --exclude='public' --exclude='.git*' --exclude='node_modules' ./ public
+
+      # 5️⃣  Upload the site artifact
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      # 6️⃣  Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
