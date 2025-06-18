@@ -34,9 +34,7 @@ jobs:
 
       - name: Zip downloads
         run: |
-          mkdir -p downloads
-          zip -j downloads/web-sizes.zip images/thumb-*.webp
-          zip -j downloads/full-res.zip images/*.{jpg,jpeg,png}
+          zip -j album.zip images/*.{jpg,jpeg,png}
 
 
       - name: Prepare publish directory

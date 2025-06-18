@@ -13,12 +13,11 @@
     .grid{
       column-width:260px;
       column-gap:12px;
-      row-gap: 24px;
       padding:0 12px 40px;
     }
     .grid-item{
       break-inside:avoid;
-      margin:0 0 24px;
+      margin-bottom: 12px;
       position:relative;
     }
     .grid-item img{
@@ -45,10 +44,11 @@
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/lightgallery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/zoom/lg-zoom.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/fullscreen/lg-fullscreen.min.js"></script>
 
   <script>
     lightGallery(document.getElementById('lightgallery'), {
-      plugins: [lgZoom, lgThumbnail],
+      plugins: [lgZoom, lgThumbnail, lgFullscreen],
       licenseKey: '0000-0000-000-0000',    // free personal license
       speed: 400,
       download: true,      // shows the ↓ button
