@@ -7,7 +7,7 @@
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/css/lightgallery-bundle.min.css" />
   <style>
-    body{margin:0;font-family:sans-serif;background:#111;color:#eee;}
+    body{margin:0;font-family:sans-serif;background:transparent;color:#eee;}
     h1{padding:20px 24px;margin:0;font-size:1.5rem;}
     /* Masonry-ish grid */
     .grid{
@@ -22,9 +22,15 @@
     .grid-item:hover img{transform:scale(1.02);}
   </style>
 </head>
+<script>
+  function sendHeight() {
+    const h = document.documentElement.scrollHeight;
+    parent.postMessage({ type: 'galleryHeight', value: h }, '*');
+  }
+  window.addEventListener('load',  sendHeight);
+  window.addEventListener('resize', sendHeight);
+  </script>  
 <body>
-  <h1>Our Work</h1>
-
   <div id="lightgallery" class="grid">
     <!--{{gallery}}-->
   </div>  

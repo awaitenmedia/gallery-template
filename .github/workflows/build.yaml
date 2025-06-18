@@ -32,6 +32,13 @@ jobs:
           npm install --no-save image-size sharp
           node .github/scripts/generate.js
 
+      - name: Zip downloads
+        run: |
+          mkdir -p downloads
+          zip -j downloads/web-sizes.zip images/thumb-*.webp
+          zip -j downloads/full-res.zip images/*.{jpg,jpeg,png}
+
+
       - name: Prepare publish directory
         run: |
           mkdir -p public
