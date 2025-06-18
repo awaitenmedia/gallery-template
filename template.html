@@ -11,10 +11,16 @@
     h1{padding:20px 24px;margin:0;font-size:1.5rem;}
     /* Masonry-ish grid */
     .grid{
-      column-width:260px; column-gap:12px;
+      column-width:260px;
+      column-gap:12px;
+      row-gap: 24px;
       padding:0 12px 40px;
     }
-    .grid-item{break-inside:avoid;margin:0 0 12px;position:relative;}
+    .grid-item{
+      break-inside:avoid;
+      margin:0 0 24px;
+      position:relative;
+    }
     .grid-item img{
       width:100%; height:auto; display:block; border-radius:8px;
       transition:transform .3s ease;
@@ -23,12 +29,12 @@
   </style>
 </head>
 <script>
-  function sendHeight() {
+  function reportHeight() {
     const h = document.documentElement.scrollHeight;
-    parent.postMessage({ type: 'galleryHeight', value: h }, '*');
+    parent.postMessage({ type:'galleryHeight', height:h }, '*');
   }
-  window.addEventListener('load',  sendHeight);
-  window.addEventListener('resize', sendHeight);
+  window.addEventListener('load',  reportHeight);
+  window.addEventListener('resize', reportHeight);
   </script>  
 <body>
   <div id="lightgallery" class="grid">
