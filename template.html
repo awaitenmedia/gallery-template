@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <title>Studio Gallery</title>
-  <!-- LightGallery core CSS -->
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/css/lightgallery-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/fullscreen/lg-fullscreen.min.js"></script>
   <style>
     body{margin:0;font-family:sans-serif;background:transparent;color:#eee;}
     h1{padding:20px 24px;margin:0;font-size:1.5rem;}
-    /* Masonry-ish grid */
     .grid{
       column-width:260px;
       column-gap:12px;
       padding:0 12px 40px;
     }
     .grid-item{
+      display:block;
       break-inside:avoid;
       margin-bottom: 12px;
       position:relative;
@@ -37,23 +37,24 @@
   </script>  
 <body>
   <div id="lightgallery" class="grid">
-    <!--{{gallery}}-->
   </div>  
 
-  <!-- LightGallery scripts -->
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/lightgallery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/zoom/lg-zoom.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/fullscreen/lg-fullscreen.min.js"></script>
 
   <script>
-    lightGallery(document.getElementById('lightgallery'), {
+    const lightbox = lightGallery(document.getElementById('lightgallery'), {
       plugins: [lgZoom, lgThumbnail, lgFullscreen],
-      licenseKey: '0000-0000-000-0000',    // free personal license
+      licenseKey: '0000-0000-000-0000',
       speed: 400,
-      download: true,      // shows the ↓ button
+      download: true,
       mobileSettings: { controls: true, showCloseIcon: true }
     });
+  
+    lightbox.on('lgAfterOpen',  () => parent.postMessage({ type: 'lgOpen'  }, '*'));
+    lightbox.on('lgAfterClose', () => parent.postMessage({ type: 'lgClose' }, '*'));
   </script>
+
 </body>
 </html>
