@@ -55,8 +55,8 @@
       mobileSettings: { controls: true, showCloseIcon: true }
     });
   
-    galleryEl.addEventListener('lgAfterOpen',  () => parent.postMessage({ type:'lgOpen'  }, '*'));
-    galleryEl.addEventListener('lgAfterClose', () => parent.postMessage({ type:'lgClose' }, '*'));
+    galleryEl.addEventListener('lgBeforeOpen', () => parent.postMessage({ type:'lgOpen'  }, '*'));
+    galleryEl.addEventListener('lgAfterClose', ()  => parent.postMessage({ type:'lgClose' }, '*'));
   </script>  
 
 </body>
