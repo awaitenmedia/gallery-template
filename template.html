@@ -44,17 +44,19 @@
   <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>
 
   <script>
-    const lightbox = lightGallery(document.getElementById('lightgallery'), {
+    const galleryEl = document.getElementById('lightgallery');
+  
+    lightGallery(galleryEl, {
       plugins: [lgZoom, lgThumbnail, lgFullscreen],
-      licenseKey: '0000-0000-000-0000',
+      licenseKey: '0000-0000-000-0000',   // leave as-is; just a console warn
       speed: 400,
       download: true,
       mobileSettings: { controls: true, showCloseIcon: true }
     });
   
-    lightbox.on('lgAfterOpen',  () => parent.postMessage({ type: 'lgOpen'  }, '*'));
-    lightbox.on('lgAfterClose', () => parent.postMessage({ type: 'lgClose' }, '*'));
-  </script>
+    galleryEl.addEventListener('lgAfterOpen',  () => parent.postMessage({ type:'lgOpen'  }, '*'));
+    galleryEl.addEventListener('lgAfterClose', () => parent.postMessage({ type:'lgClose' }, '*'));
+  </script>  
 
 </body>
 </html>
