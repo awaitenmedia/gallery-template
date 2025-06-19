@@ -48,8 +48,10 @@
     const galleryEl = document.getElementById('lightgallery');
   
     galleryEl.addEventListener('click', e => {
-      if (e.target.closest('a')) parent.postMessage({ type: 'lgOpen' }, '*');
-    });
+      if (e.target.closest('a')) {
+        parent.postMessage({ type: 'lgOpen' }, '*');
+      }
+    }, true);             /*  ← capture phase */
   
     lightGallery(galleryEl, {
       plugins: [lgZoom, lgThumbnail, lgFullscreen],
